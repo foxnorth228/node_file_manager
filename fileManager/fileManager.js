@@ -1,11 +1,12 @@
 import { argv } from "process";
 import * as rl from "readline";
+import * as checkArgs from "./arguments/checkArguments.js"
 import * as setts from "./arguments/settings.js";
 import { checkCommands } from "./commandsManager/checkCommands.js";
 
 export function manageFiles() {
     const args = argv.slice(2);
-    setts.checkArgs(args);
+    checkArgs.checkArgs(args);
 
     console.log(`Welcome to the File Manager, ${setts.getConfig("username")}!`);
     console.log(`You are currently in ${setts.getConfig("location")}`);

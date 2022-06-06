@@ -1,3 +1,4 @@
+import { setConfig } from "../arguments/settings.js";
 const listOfCommands = {
     
 };
