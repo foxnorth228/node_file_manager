@@ -1,7 +1,7 @@
 import { argv } from "process";
 import * as rl from "readline";
-import * as checkArgs from "./arguments/checkArguments.js"
 import * as setts from "./arguments/settings.js";
+import * as checkArgs from "./arguments/checkArguments.js"
 import { checkCommands } from "./commandsManager/checkCommands.js";
 
 export function manageFiles() {
