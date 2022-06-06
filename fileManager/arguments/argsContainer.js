@@ -6,6 +6,7 @@ export const flagsList = {
 
 };
 
-function addUserName() {
-    console.log("Add user");
+function addUserName(name="noname") {
+    console.log(`User ${name} registred`);
+    return name;
 }

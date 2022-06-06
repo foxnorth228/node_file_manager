@@ -1,13 +1,16 @@
 import * as containerArgs from "./argsContainer.js";
 
 export function checkArgs(args) {
+    let key;
+    let value;
     for (const arg of args) {
         switch(true) {
             case arg.startsWith("--"):
-                checkArgument(arg);
+                [key, value] = checkArgument(arg);
+                settings[key] = value;
                 break;
             case arg.startsWith("-"):
-                checkFlag(arg);
+                settings[arg] = checkFlag(arg);
                 break;
             default: 
                 throw new TypeError("Wrong command-line argument was given");;
@@ -16,14 +19,14 @@ export function checkArgs(args) {
 }
 
 function checkArgument(arg) {
-    let value = arg.slice(2).split("=");
-    if (value.length > 2) {
+    let values = arg.slice(2).split("=");
+    if (values.length > 2) {
         throw new TypeError("Wrong syntax of command-line argument");
     }
-    if (!(value[0] in containerArgs.argsList)) {
+    if (!(values[0] in containerArgs.argsList)) {
         throw new TypeError(`Argument (${value}) dasn't exist`);
     }
-    containerArgs.argsList[value[0]]();
+    return [values[0], containerArgs.argsList[values[0]](values[1])];
 }
 
 function checkFlag(arg) {
@@ -31,4 +34,10 @@ function checkFlag(arg) {
     if (!(value in containerArgs.flagsList)) {
         throw new TypeError(`Flag (${value}) dasn't exist`);
     }
+}
+
+export const getConfig = (name) => settings[name];
+
+const settings = {
+    username: "noname",
 }
