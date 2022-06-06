@@ -1,6 +1,7 @@
 import { argv } from "process";
 import * as rl from "readline";
 import * as setts from "./arguments/settings.js";
+import { checkCommands } from "./commandsManager/checkCommands.js";
 
 export function manageFiles() {
     const args = argv.slice(2);
@@ -13,8 +14,11 @@ export function manageFiles() {
         input: process.stdin,
         output: process.stdout,
     }); 
+    readline.setPrompt(`${setts.getConfig("location")} >> `);
+    readline.prompt();
     readline.on('line', (input)=>{
-        console.log(`You are currently in ${setts.getConfig("location")}`);
+        checkCommands(input);
+        readline.setPrompt(`${setts.getConfig("location")} >> `);
         readline.prompt();
     });
     readline.on('SIGINT', ()=>{
@@ -23,8 +27,4 @@ export function manageFiles() {
     readline.on('close', ()=>{
         console.log(`Thank you for using File Manager, ${setts.getConfig("username")}!`);
     });
-}
-
-function checkCommands() {
-    
 }
