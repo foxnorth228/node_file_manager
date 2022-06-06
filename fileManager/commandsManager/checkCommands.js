@@ -1,5 +1,6 @@
 import { setConfig } from "../arguments/settings.js";
 import * as comm from "./commandsList.js";
+import * as access from "./checkAccess.js";
 const listOfCommands = {
     add: comm.add.add,
     cat: comm.cat.cat,
@@ -18,9 +19,13 @@ const listOfCommands = {
 
 export function checkCommands(input) {
     const commands = input.trim().split(" ");
-    if(!(commands[0] in listOfCommands)) {
+    if (commands[0] === ".exit"){
+        return false;
+    } else if(!(commands[0] in listOfCommands)) {
         console.log("Invalid input")
         return;
+    } else {
+        listOfCommands[commands[0]]();
     }
     console.log(commands);
 }

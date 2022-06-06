@@ -18,7 +18,10 @@ export function manageFiles() {
     readline.setPrompt(`${setts.getConfig("location")} >> `);
     readline.prompt();
     readline.on('line', (input)=>{
-        checkCommands(input);
+        if(!checkCommands(input)) {
+            readline.close();
+            return;
+        }
         readline.setPrompt(`${setts.getConfig("location")} >> `);
         readline.prompt();
     });
