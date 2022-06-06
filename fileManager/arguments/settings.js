@@ -1,4 +1,5 @@
 import * as containerArgs from "./argsContainer.js";
+import { env } from "process";
 
 export function checkArgs(args) {
     let key;
@@ -37,7 +38,9 @@ function checkFlag(arg) {
 }
 
 export const getConfig = (name) => settings[name];
+export const setConfig = (name, value) => { settings[name] = value; };
 
 const settings = {
     username: "noname",
+    location: env.HOME,
 }

@@ -7,18 +7,24 @@ export function manageFiles() {
     setts.checkArgs(args);
 
     console.log(`Welcome to the File Manager, ${setts.getConfig("username")}!`);
+    console.log(`You are currently in ${setts.getConfig("location")}`);
+
     const readline = rl.createInterface({
         input: process.stdin,
         output: process.stdout,
     }); 
-    
-    readline.on('line', ()=>{
+    readline.on('line', (input)=>{
+        console.log(`You are currently in ${setts.getConfig("location")}`);
+        readline.prompt();
+    });
+    readline.on('SIGINT', ()=>{
         readline.close();
     });
-    readline.prompt();
-    if(true) {
+    readline.on('close', ()=>{
+        console.log(`Thank you for using File Manager, ${setts.getConfig("username")}!`);
+    });
+}
 
-    } else {
-
-    }
+function checkCommands() {
+    
 }
