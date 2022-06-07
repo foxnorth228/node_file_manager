@@ -1,8 +1,8 @@
-export const argsList = {
+export const longFlagList = {
     username: addUserName,
 };
 
-export const flagsList = {
+export const shortFlagList = {
 
 };
 

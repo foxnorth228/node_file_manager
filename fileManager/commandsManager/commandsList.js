@@ -12,4 +12,18 @@ import * as rm from "./commands/rm.js";
 import * as rn from "./commands/rn.js";
 import * as up from "./commands/up.js";
 
-export{ add, cat, cd, compress, cp, decompress, hash, ls, mv, os, rm, rn, up};
+export const listOfCommands = {
+    add: add.add,
+    cat: cat.cat,
+    cd: cd.cd,
+    compress: compress.compress,
+    cp: cp.cp,
+    decompress: decompress.decompress,
+    hash: hash.hash,
+    ls: ls.ls,
+    mv: mv.mv,
+    os: os.os,
+    rm: rm.rm,
+    rn: rn.rn,
+    up: up.up,
+};
