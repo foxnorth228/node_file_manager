@@ -1,8 +1,8 @@
 import { changeSetting } from "../settings.js";
 import * as comm from "./commandsList.js";
-import * as access from "./checkAccess.js";
+import * as access from "./checkFileAccess.js";
 
-export function checkCommands(input) {
+export async function checkCommands(input) {
     const nonProcessedInput = input.trim().split(" ");
     const commandName = nonProcessedInput[0];
     if (commandName === ".exit"){
@@ -11,11 +11,16 @@ export function checkCommands(input) {
         console.log("Invalid input")
     } else {
         try{
-            comm.listOfCommands[commandName](nonProcessedInput[1]);
+            console.log("2")
+            await comm.listOfCommands[commandName](nonProcessedInput.slice(1));
         } catch(err) {
-            console.log(`Operation failed\n code: ${err.code}\n message: ${err.message}`);
+            console.log("3")
+            if(isNaN(err.code)) {
+                console.log(`\nOperation failed\n message: ${err.message}`);
+            } else {
+                console.log(`\nOperation failed\n code: ${err.code}\n message: ${err.message}`);
+            }
         }
     }
-    console.log(commandName);
     return true;
 }
