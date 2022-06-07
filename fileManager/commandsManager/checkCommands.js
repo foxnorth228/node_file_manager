@@ -3,7 +3,7 @@ import * as comm from "./commandsList.js";
 import * as access from "./checkFileAccess.js";
 
 export async function checkCommands(input) {
-    const nonProcessedInput = input.trim().split(" ");
+    const nonProcessedInput = input.trim().replace(/\s{2,}/gi, " ").split(" ");
     const commandName = nonProcessedInput[0];
     if (commandName === ".exit"){
         return false;
