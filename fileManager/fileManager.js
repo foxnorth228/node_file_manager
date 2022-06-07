@@ -17,7 +17,7 @@ export function manageFiles() {
     }); 
     readline.setPrompt(`${setts.getSetting("location")} >> `);
     readline.prompt();
-    readline.on('line', async (input)=>{
+    readline.on('line', async (input) => {
         const answer = await checkCommands(input);
         if(!answer) {
             readline.close();

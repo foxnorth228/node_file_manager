@@ -11,14 +11,19 @@ export async function checkCommands(input) {
         console.log("Invalid input")
     } else {
         try{
-            console.log("2")
-            await comm.listOfCommands[commandName](nonProcessedInput.slice(1));
-        } catch(err) {
-            console.log("3")
-            if(isNaN(err.code)) {
-                console.log(`\nOperation failed\n message: ${err.message}`);
+            const func = comm.listOfCommands[commandName];
+            console.log(func.length);
+            if (func.length > 0) {
+                
+                await func(nonProcessedInput.slice(1));
             } else {
-                console.log(`\nOperation failed\n code: ${err.code}\n message: ${err.message}`);
+                await func();
+            }
+        } catch(err) {
+            if(isNaN(err.code)) {
+                console.log(`\nOperation failed\n message: ${err.message}\n`);
+            } else {
+                console.log(`\nOperation failed\n code: ${err.code}\n message: ${err.message}\n`);
             }
         }
     }
