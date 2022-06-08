@@ -1,35 +1,37 @@
 import { argv } from "process";
-import * as rl from "readline";
-import * as setts from "./settings.js";
-import * as checkArgs from "./argumentsCL/checkArguments.js"
+import { createInterface } from "readline";
+
+import { getSetting } from "./settings.js";
+import { checkArgs } from "./argumentsCL/checkArguments.js"
 import { checkCommands } from "./commandsManager/checkCommands.js";
 
-export function manageFiles() {
+export function startConsoleFileManager() {
     const args = argv.slice(2);
-    checkArgs.checkArgs(args);
+    checkArgs(args);
 
-    console.log(`Welcome to the File Manager, ${setts.getSetting("username")}!`);
-    console.log(`You are currently in ${setts.getSetting("location")}`);
+    console.log(`Welcome to the File Manager, ${getSetting("username")}!`);
+    console.log(`You are currently in ${getSetting("location")}`);
 
-    const readline = rl.createInterface({
+    const readlineInterface = createInterface({
         input: process.stdin,
         output: process.stdout,
     }); 
-    readline.setPrompt(`${setts.getSetting("location")} >> `);
-    readline.prompt();
-    readline.on('line', async (input) => {
+    readlineInterface.setPrompt(`${getSetting("location")} >> `);
+
+    readlineInterface.prompt();
+    readlineInterface.on('line', async (input) => {
         const answer = await checkCommands(input);
-        if(!answer) {
-            readline.close();
+        if(answer === "exit") {
+            readlineInterface.close();
             return;
         }
-        readline.setPrompt(`${setts.getSetting("location")} >> `);
-        readline.prompt();
+        readlineInterface.setPrompt(`${getSetting("location")} >> `);
+        readlineInterface.prompt();
     });
-    readline.on('SIGINT', ()=>{
-        readline.close();
+    readlineInterface.on('SIGINT', ()=>{
+        readlineInterface.close();
     });
-    readline.on('close', ()=>{
-        console.log(`Thank you for using File Manager, ${setts.getSetting("username")}!`);
+    readlineInterface.on('close', ()=>{
+        console.log(`Thank you for using File Manager, ${getSetting("username")}!`);
     });
 }

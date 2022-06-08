@@ -1,2 +1,2 @@
-import * as fileManager from "./fileManager/fileManager.js";
-fileManager.manageFiles();
+import { startConsoleFileManager } from "./fileManager/fileManager.js";
+startConsoleFileManager();

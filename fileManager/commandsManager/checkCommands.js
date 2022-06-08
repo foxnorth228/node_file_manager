@@ -6,7 +6,7 @@ export async function checkCommands(input) {
     const nonProcessedInput = input.trim().replace(/\s{2,}/gi, " ").split(" ");
     const commandName = nonProcessedInput[0];
     if (commandName === ".exit"){
-        return false;
+        return "exit";
     } else if(!(commandName in comm.listOfCommands)) {
         console.log("Invalid input")
     } else {
@@ -27,5 +27,5 @@ export async function checkCommands(input) {
             }
         }
     }
-    return true;
+    return commandName;
 }

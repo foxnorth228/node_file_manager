@@ -13,5 +13,3 @@ const settings = {
     location: env.HOME,
     rootDirectory: parse(env.HOME).root,
 }
-
-console.log(settings);
