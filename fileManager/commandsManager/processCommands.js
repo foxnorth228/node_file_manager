@@ -10,12 +10,10 @@ export async function processCommands(input) {
         return "";
     }
 
-    try{
-        const func = listOfCommands[commandName];
-        await func(nonProcessedInput.slice(1));
+    try {
+        await listOfCommands[commandName](nonProcessedInput.slice(1));
     } catch(err) {
-        let errorMessage = "Operation failed...\n";
-        errorMessage += `   message: ${err.message}`;
+        let errorMessage = `Operation failed...\n    message: ${err.message}`;
         console.log(errorMessage);
     }
     return commandName;

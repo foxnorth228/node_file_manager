@@ -1,13 +1,17 @@
-import { checkAccess } from "../supportiveFileFuncs.js";
+import { checkAccess, makePathAbsolute, checkArgsNumber } from "../supportiveFileFuncs.js";
 import { constants } from "fs";
 import { createReadStream } from "fs";
 
 export async function cat(nonProcessedInput) {
-    if (nonProcessedInput.length > 1) {
-        throw new SyntaxError("Number of arguments is too big")
+    const processedInput = await checkArgsNumber(nonProcessedInput, 1);
+    const [isFileExist, error] = await checkAccess(processedInput[0], constants.R_OK);
+
+    if (isFileExist) {
+        const path = await makePathAbsolute(processedInput[0]);
+        await print(createReadStream(path));
+    } else {
+        throw error;
     }
-    const path = await checkAccess(nonProcessedInput[0], constants.R_OK);
-    await print(createReadStream(path));
 }
 
 async function print(readable) {
