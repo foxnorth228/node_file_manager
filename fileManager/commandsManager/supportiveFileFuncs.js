@@ -5,7 +5,9 @@ import { constants } from "fs";
 
 export async function checkArgsNumber(nonProcessedInput, number) {
     if (nonProcessedInput.length > number) {
-        throw new SyntaxError("Number of arguments is too big")
+        throw new SyntaxError("Number of arguments is too big");
+    } else if (nonProcessedInput.length > number) {
+        throw new SyntaxError("Number of arguments is not enough");
     }
     return nonProcessedInput;
 }
@@ -35,4 +37,13 @@ export async function checkIsFile(path) {
 export async function checkIsDir(path) {
     const objectInfo = await stat(path);
     return objectInfo.isDirectory();
+}
+
+export async function executeCommandFunction(accessControllers, errors, func, args) {
+    const errorIndex = accessControllers.findIndex((el) => el === false);
+    if(errorIndex === -1) {
+        return await func(args);
+    } else {
+        throw errors[errorIndex];
+    }
 }
