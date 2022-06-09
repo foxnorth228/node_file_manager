@@ -1,4 +1,4 @@
-import { checkAccess } from "../checkFileAccess.js";
+import { checkAccess } from "../supportiveFileFuncs.js";
 import { rm as remove } from "fs/promises";
 export async function rm(nonProcessedInput) {
     if (nonProcessedInput.length > 1) {

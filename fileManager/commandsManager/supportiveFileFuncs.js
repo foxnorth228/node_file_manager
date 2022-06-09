@@ -14,3 +14,10 @@ export async function makePathAbsolute(path) {
     console.log(path, isAbsolute(path));
     return (isAbsolute(path)) ? path : join(getSetting("location"), path); 
 }
+
+export async function checkArgsNumber(nonProcessedInput, number) {
+    if (nonProcessedInput.length > number) {
+        throw new SyntaxError("Number of arguments is too big")
+    }
+    return nonProcessedInput;
+}

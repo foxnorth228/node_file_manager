@@ -1,16 +1,14 @@
-import { checkAccess, makePathAbsolute } from "../checkFileAccess.js";
+import { checkAccess, makePathAbsolute, checkArgsNumber } from "../supportiveFileFuncs.js";
 import { open } from "fs/promises";
 
 export async function add(nonProcessedInput) {
-    if (nonProcessedInput.length > 1) {
-        throw new SyntaxError("Number of arguments is too big")
-    }
+    const processedInput = checkArgsNumber(nonProcessedInput, 1);
     let isExist = true;
     let path;
     try {
-        path = await checkAccess(nonProcessedInput[0]);
+        path = await checkAccess(processedInput[0]);
     } catch(err) {
-        path = await makePathAbsolute(nonProcessedInput[0]);
+        path = await makePathAbsolute(processedInput[0]);
         isExist = false;
     }
 

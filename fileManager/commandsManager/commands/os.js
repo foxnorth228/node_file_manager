@@ -1,4 +1,4 @@
-import { checkAccess } from "../checkFileAccess.js";
+import { checkAccess } from "../supportiveFileFuncs.js";
 import { EOL, cpus, homedir, arch } from "os";
 import { env } from "process";
 

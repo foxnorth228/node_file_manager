@@ -1,4 +1,4 @@
-import { checkAccess } from "../checkFileAccess.js";
+import { checkAccess } from "../supportiveFileFuncs.js";
 import { stat } from "fs/promises";
 import { constants } from "fs";
 import { changeSettingLocation } from "../../settings.js";

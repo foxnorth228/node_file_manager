@@ -1,4 +1,4 @@
-import { checkAccess, makePathAbsolute } from "../checkFileAccess.js";
+import { checkAccess, makePathAbsolute } from "../supportiveFileFuncs.js";
 import { createReadStream, createWriteStream } from "fs";
 import { pipeline } from "stream/promises";
 import { createBrotliDecompress } from "zlib";

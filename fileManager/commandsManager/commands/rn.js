@@ -1,4 +1,4 @@
-import { checkAccess, makePathAbsolute } from "../checkFileAccess.js";
+import { checkAccess, makePathAbsolute } from "../supportiveFileFuncs.js";
 import { rename } from "fs/promises";
 
 export async function rn(nonProcessedInput) {

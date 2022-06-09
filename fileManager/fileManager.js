@@ -3,7 +3,7 @@ import { createInterface } from "readline";
 
 import { getSetting } from "./settings.js";
 import { checkArgs } from "./argumentsCL/checkArguments.js"
-import { checkCommands } from "./commandsManager/checkCommands.js";
+import { processCommands } from "./commandsManager/processCommands.js";
 
 export function startConsoleFileManager() {
     const args = argv.slice(2);
@@ -20,7 +20,7 @@ export function startConsoleFileManager() {
 
     readlineInterface.prompt();
     readlineInterface.on('line', async (input) => {
-        const answer = await checkCommands(input);
+        const answer = await processCommands(input);
         if(answer === "exit") {
             readlineInterface.close();
             return;

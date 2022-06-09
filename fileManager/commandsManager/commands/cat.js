@@ -1,4 +1,4 @@
-import { checkAccess } from "../checkFileAccess.js";
+import { checkAccess } from "../supportiveFileFuncs.js";
 import { constants } from "fs";
 import { createReadStream } from "fs";
 
