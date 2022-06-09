@@ -1,5 +1,6 @@
-import { checkAccess, makePathAbsolute, checkArgsNumber, executeCommandFunction } from "../supportiveFileFuncs.js";
-import { createReadStream, createWriteStream } from "fs";
+import { checkAccess, makePathAbsolute, checkArgsNumber,
+    executeCommandFunction, checkIsFile, checkDirAccess } from "../supportiveFileFuncs.js";
+import { createReadStream, createWriteStream, constants } from "fs";
 import { pipeline } from "stream/promises";
 import { createBrotliCompress } from "zlib";
 
@@ -19,6 +20,8 @@ export async function compress(nonProcessedInput) {
 async function compressFile(processedInput) {
     const oldName = await makePathAbsolute(processedInput[0]);
     const newName = await makePathAbsolute(processedInput[1] + '.br');
+    await checkIsFile(oldName);
+    await checkDirAccess(newName, constants.W_OK);
     await pipeline(
         createReadStream(oldName),
         createBrotliCompress(),

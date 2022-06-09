@@ -1,4 +1,5 @@
-import { checkAccess, makePathAbsolute, checkArgsNumber, executeCommandFunction } from "../supportiveFileFuncs.js";
+import { checkAccess, makePathAbsolute, checkArgsNumber,
+  executeCommandFunction, checkIsFile } from "../supportiveFileFuncs.js";
 import { constants } from "fs";
 import { createReadStream } from "fs";
 import { createHash } from "crypto";
@@ -11,6 +12,7 @@ export async function hash(nonProcessedInput) {
 
 async function hashFile(processedInput) {
     const path = await makePathAbsolute(processedInput[0]);
+    await checkIsFile(path);
     const readable = createReadStream(path);
     readable.setEncoding('utf8');
     let data = '';

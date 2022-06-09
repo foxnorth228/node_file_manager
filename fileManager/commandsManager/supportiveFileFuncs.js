@@ -1,6 +1,6 @@
 import { access, stat } from "fs/promises";
 import { getSetting } from "../settings.js";
-import { join, isAbsolute } from "path";
+import { join, isAbsolute, dirname } from "path";
 import { constants } from "fs";
 
 export async function checkArgsNumber(nonProcessedInput, number) {
@@ -31,12 +31,16 @@ export async function makePathAbsolute(path) {
 
 export async function checkIsFile(path) {
     const objectInfo = await stat(path);
-    return objectInfo.isFile();
+    if (!objectInfo.isFile()) {
+        throw new Error(`${path} is not a file`);
+    };
 }
 
 export async function checkIsDir(path) {
     const objectInfo = await stat(path);
-    return objectInfo.isDirectory();
+    if (!objectInfo.isDirectory()) {
+        throw new Error(`${path} is not a directory`);
+    }
 }
 
 export async function executeCommandFunction(accessControllers, errors, func, args) {
@@ -45,5 +49,13 @@ export async function executeCommandFunction(accessControllers, errors, func, ar
         return await func(args);
     } else {
         throw errors[errorIndex];
+    }
+}
+
+export async function checkDirAccess(dir, typeOfAccess=constants.R_OK) {
+    try {
+        await access(dirname(dir), typeOfAccess);
+    } catch(err) {
+        throw new Error("You haven't required permissions to do this");
     }
 }

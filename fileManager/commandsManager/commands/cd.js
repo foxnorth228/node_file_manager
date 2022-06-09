@@ -1,5 +1,5 @@
-import { checkAccess, checkArgsNumber, makePathAbsolute, executeCommandFunction } from "../supportiveFileFuncs.js";
-import { stat } from "fs/promises";
+import { checkAccess, checkArgsNumber, makePathAbsolute,
+  executeCommandFunction, checkIsDir } from "../supportiveFileFuncs.js";
 import { constants } from "fs";
 import { changeSettingLocation } from "../../settings.js";
 
@@ -11,5 +11,6 @@ export async function cd(nonProcessedInput) {
 
 async function cdDir(processedInput) {
     const path = await makePathAbsolute(processedInput[0]);
+    await checkIsDir(path);
     changeSettingLocation(path);
 } 
