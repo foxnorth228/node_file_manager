@@ -1,5 +1,5 @@
 import { checkAccess, makePathAbsolute, checkArgsNumber,
-    executeCommandFunction, checkIsFile, checkDirAccess } from "../supportiveFileFuncs.js";
+    executeCommandFunction, checkIsFile, checkParentDirAccess } from "../supportiveFileFuncs.js";
 import { createReadStream, createWriteStream, constants } from "fs";
 import { pipeline } from "stream/promises";
 import { createBrotliDecompress } from "zlib";
@@ -21,7 +21,7 @@ async function decompressFile(processedInput) {
     const oldName = await makePathAbsolute(processedInput[0]);
     const newName = await makePathAbsolute(processedInput[1]);
     await checkIsFile(oldName);
-    await checkDirAccess(newName, constants.W_OK);
+    await checkParentDirAccess(newName, constants.W_OK);
     await pipeline(
         createReadStream(oldName),
         createBrotliDecompress(),

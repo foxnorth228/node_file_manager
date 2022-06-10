@@ -1,5 +1,5 @@
 import { checkAccess, makePathAbsolute, checkArgsNumber,
-  executeCommandFunction, checkDirAccess } from "../supportiveFileFuncs.js";
+  executeCommandFunction, checkParentDirAccess } from "../supportiveFileFuncs.js";
 import { open } from "fs/promises";
 import { constants } from "fs";
 
@@ -12,7 +12,7 @@ export async function add(nonProcessedInput) {
 
 async function addFile(processedInput) {
     const path = await makePathAbsolute(processedInput[0]);
-    await checkDirAccess(path, constants.W_OK);
+    await checkParentDirAccess(path, constants.W_OK);
     const fileCreater = await open(path, "w");
     fileCreater.close();
     console.log("File successfully created");

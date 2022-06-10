@@ -1,5 +1,5 @@
 import { checkAccess, checkArgsNumber } from "../supportiveFileFuncs.js";
-import { EOL, cpus, homedir, arch } from "os";
+import { EOL, cpus, homedir, arch, userInfo } from "os";
 import { env } from "process";
 
 export async function os(nonProcessedInput) {
@@ -21,7 +21,7 @@ export async function os(nonProcessedInput) {
         case "homedir": 
             console.log(`${flag} is ${homedir()}`); break;
         case "username": 
-            console.log(`${flag} is ${env.USER}`); break;
+            console.log(`${flag} is ${userInfo().username}`); break;
         case "architecture": 
             console.log(`${flag} is ${arch()}`);break;
         default: 

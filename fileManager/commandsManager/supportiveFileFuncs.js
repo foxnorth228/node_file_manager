@@ -52,7 +52,7 @@ export async function executeCommandFunction(accessControllers, errors, func, ar
     }
 }
 
-export async function checkDirAccess(dir, typeOfAccess=constants.R_OK) {
+export async function checkParentDirAccess(dir, typeOfAccess=constants.R_OK) {
     try {
         await access(dirname(dir), typeOfAccess);
     } catch(err) {

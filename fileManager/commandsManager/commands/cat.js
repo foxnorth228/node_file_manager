@@ -2,6 +2,8 @@ import { checkAccess, makePathAbsolute, checkArgsNumber,
   executeCommandFunction, checkIsFile } from "../supportiveFileFuncs.js";
 import { constants } from "fs";
 import { createReadStream } from "fs";
+import { platform } from "process";
+import { EOL } from "os";
 
 export async function cat(nonProcessedInput) {
     const processedInput = await checkArgsNumber(nonProcessedInput, 1);
@@ -11,12 +13,16 @@ export async function cat(nonProcessedInput) {
 
 async function catFile(processedInput) {
     const path = await makePathAbsolute(processedInput[0]);
+    let textDecoder;
+    if (platform === "win32") {
+      textDecoder = new TextDecoder("windows-1251");
+    } else {
+      textDecoder = new TextDecoder("utf-8");
+    }
     await checkIsFile(path);
     const readable = createReadStream(path);
-    readable.setEncoding('utf8');
-    let data = '';
     for await (const chunk of readable) {
-      data += chunk;
+      console.log(textDecoder.decode(chunk));
     }
-    console.log(data);
 }
+//git commit -m "fix: fix os --username for windows and fix cat command"
