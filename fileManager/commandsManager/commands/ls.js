@@ -10,11 +10,11 @@ export async function ls(nonProcessedInput) {
 }
 
 async function lsDir(processedInput) {
-    const dirContent = await readdir(getSetting("location"));
+    const dirContent = await readdir(getSetting("location"), { withFileTypes: true });
         for await (let file of dirContent) {
-            if (file.startsWith(".")) {
+            if ((file.name).startsWith(".") && !file.isFile()) {
                 continue;
             }
-            console.log(file);
+            console.log(file.name);
         }
 }
