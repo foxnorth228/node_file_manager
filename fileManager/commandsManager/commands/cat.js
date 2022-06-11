@@ -13,16 +13,11 @@ export async function cat(nonProcessedInput) {
 
 async function catFile(processedInput) {
     const path = await makePathAbsolute(processedInput[0]);
-    let textDecoder;
-    if (platform === "win32") {
-      textDecoder = new TextDecoder("windows-1251");
-    } else {
-      textDecoder = new TextDecoder("utf-8");
-    }
     await checkIsFile(path);
     const readable = createReadStream(path);
+    readable.setEncoding("utf-8");
     for await (const chunk of readable) {
-      console.log(textDecoder.decode(chunk));
+      console.log(chunk);
     }
 }
 //git commit -m "fix: fix os --username for windows and fix cat command"

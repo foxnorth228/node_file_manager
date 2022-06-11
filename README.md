@@ -1,0 +1,1 @@
+Instead of using "You are currently in path_to_working_directory" I change prompt to currently path_to_working_directory, all other functionality implement without any changes.
